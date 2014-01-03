@@ -3,9 +3,9 @@
 define([
   'dojo/_base/declare',
   'dojo/_base/lang',
+  'dojo/dom',
   'dojo/on',
   'dojo/Evented',
-  'dojo/query',
   'dojo/dom-construct',
   'dojo/dom-attr',
   'dojo/dom-class',
@@ -19,7 +19,7 @@ define([
   'dojo/NodeList-dom'
 ], function(
   declare, lang,
-  on, Evented, query,
+  dom, on, Evented,
   domConstruct, domAttr, domClass, topic,
   _WidgetBase, _TemplatedMixin, a11yclick, template
 ) {
@@ -27,10 +27,6 @@ define([
 
   function has(target, prop) {
     return prop in target;
-  }
-
-  function toggleNav() {
-    query('.collapse').toggleClass('nav-open');
   }
 
   return declare([_WidgetBase, _TemplatedMixin, Evented], {
@@ -56,11 +52,12 @@ define([
     },
 
     postCreate: function() {
+      var nodeCollapse;
       if (!this.hasDomRef) {
         domConstruct.place(this.domNode, document.body, 'first');
       }
       if (has(this.options, 'appName')) {
-        var appName = document.getElementById('app-name');
+        var appName = dom.byId('app-name');
         if (appName) {
           appName.innerHTML = this.options.appName;
         }
@@ -69,8 +66,12 @@ define([
         document.title = this.options.pageTitle;
       }
 
+      nodeCollapse = dom.byId('nav-collapse-container');
+
       this.own(
-        on(query('.navbar-toggle'), a11yclick, toggleNav)
+        on(dom.byId('nav-toggle'), a11yclick, function() {
+          domClass.toggle(nodeCollapse, 'nav-open');
+        })
       );
     },
 
