@@ -29,6 +29,7 @@ define([
     return prop in target;
   }
 
+
   return declare([_WidgetBase, _TemplatedMixin, Evented], {
 
     templateString: template,
@@ -69,7 +70,7 @@ define([
       nodeCollapse = dom.byId('nav-collapse-container');
 
       this.own(
-        on(dom.byId('nav-toggle'), a11yclick, function() {
+        on(dom.byId('nav-toggle'), a11yclick.click, function() {
           domClass.toggle(nodeCollapse, 'nav-open');
         })
       );
