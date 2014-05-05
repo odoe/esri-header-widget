@@ -58,6 +58,17 @@ define([
             }
           );
 
+          it(
+              'will emit a load event on startup',
+              function(done) {
+                header.on('loaded', function() {
+                  expect(header.loaded).to.be.true;
+                  done();
+                });
+                header.startup();
+              }
+            );
+
         }
       );
 

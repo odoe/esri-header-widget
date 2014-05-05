@@ -40,14 +40,12 @@ define([
 
     loaded: false,
 
-    constructor: function(options, srcRefNode) {
-
+    constructor: function(options, srcNodeRef) {
       // mix in settings and defaults
-      declare.safeMixin(this.options, options);
+      this.options = options || {};
 
       // widget node
-      if (srcRefNode) {
-        this.domNode = srcRefNode;
+      if (srcNodeRef) {
         this.hasDomRef = true;
       }
     },
@@ -84,6 +82,7 @@ define([
     // private functions
     _init: function() {
       this.set('loaded', true);
+      this.emit('loaded', true);
     }
   });
 
