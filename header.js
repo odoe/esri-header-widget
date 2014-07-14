@@ -15,20 +15,13 @@ define([
   'dijit/_TemplatedMixin',
   'dijit/a11yclick',
   // template
-  'text!widgets/header/header.tpl.html',
-  'dojo/NodeList-dom'
+  'text!widgets/header/header.tpl.html'
 ], function(
   declare, lang,
   dom, on, Evented,
   domConstruct, domAttr, domClass, topic,
   _WidgetBase, _TemplatedMixin, a11yclick, template
 ) {
-  'use strict';
-
-  function has(target, prop) {
-    return prop in target;
-  }
-
 
   return declare([_WidgetBase, _TemplatedMixin, Evented], {
 
@@ -55,21 +48,21 @@ define([
       if (!this.hasDomRef) {
         domConstruct.place(this.domNode, document.body, 'first');
       }
-      if (has(this.options, 'appName')) {
+      if (this.get('appName')) {
         var appName = dom.byId('app-name');
         if (appName) {
-          appName.innerHTML = this.options.appName;
+          appName.innerHTML = this.get('appName');
         }
       }
-      if (has(this.options, 'pageTitle')) {
-        document.title = this.options.pageTitle;
+      if (this.get('pageTitle')) {
+        document.title = this.get('pageTitle');
       }
 
       nodeCollapse = dom.byId('nav-collapse-container');
 
       this.own(
         on(dom.byId('nav-toggle'), a11yclick.click, function() {
-          domClass.toggle(nodeCollapse, 'nav-open');
+          domClass.toggle(nodeCollapse, 'collapse nav-open');
         })
       );
     },
