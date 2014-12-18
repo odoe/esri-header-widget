@@ -1,4 +1,3 @@
-/*global define*/
 /*jshint strict:false*/
 define([
   'dojo/_base/declare',
@@ -80,4 +79,3 @@ define([
   });
 
 });
-
